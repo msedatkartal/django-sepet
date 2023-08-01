@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-4">
+            <img src="{{ product.image.url }}" width="100%" alt="">
+        </div>
+        <div class="col-8">
+            <h5>Ürün İsmi : {{ product.name }}</h5>
+            <p>Ürün Açıklaması : {{ product.content }}</p>
+            <p>Fiyat : {{ product.price }}</p>
+        </div>
+    </div>
+{% endblock content %}
+    

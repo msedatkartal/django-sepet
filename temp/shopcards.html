@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="row">
+
+    {% for card in shopcards %}
+    <div class="col-4">
+        <img src="{{ card.product.image.url }}" width="100%" alt="">
+    </div>
+    <div class="col-8 border position-relative">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="cardId" value="{{ card.id }}">
+            <input type="submit" value="" name="delete" class="btn-close position-absolute top-0 end-0">
+        </form>
+        <h5>Ürün İsmi : {{ card.product.name }}</h5>
+        <p>Ürün Açıklaması : {{ card.product.content }}</p>
+        <p>Fiyat : {{ card.product.price }}</p>
+        <p>Ürün Adeti : {{ card.count }}</p>
+        <p>Toplam Fiyatı : {{ card.totalPrice }}</p>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="cardId" value="{{ card.id }}">
+            <input type="number" name="adet" value="{{ card.adet }}" id="" class="form-control">
+            <input type="submit" value="Güncelle" name="update" class="mt-2 btn btn-primary">
+        </form>
+    </div>
+    {% empty %}
+    <h1>Sepetinizde Ürün Bulunmamaktadır!!</h1>
+    {% endfor %}
+    
+    <p>Toplam Ücret : {{ toplam }}TL</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Ödeme Yap" name="payment" class="btn btn-primary">
+    </form>
+</div>
+{% endblock content %}
